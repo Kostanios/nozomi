@@ -1,0 +1,14 @@
+version: '1.1'
+services:
+  postgress:
+    platform: linux/arm64
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./persistence/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./persistence/schema:/db_scripts
