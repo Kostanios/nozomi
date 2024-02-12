@@ -1,10 +1,12 @@
 import { Request, Response } from 'express';
 import { compare, hash } from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import * as process from 'process';
 
 import { pool } from '../../../routes';
 import { userSchema } from '../../schema/user';
 import L from '../../../common/logger';
+import '../../../common/env';
 
 export class AuthController {
   async reg(req: Request, res: Response) {
@@ -28,6 +30,11 @@ export class AuthController {
         user: result.rows[0],
       });
     } catch (error) {
+      if (error.code === '23505') {
+        return res
+          .status(409)
+          .json({ message: 'User with this email already exist' });
+      }
       L.error(error, 'Error while creating user');
       return res.status(500).json({ message: 'Internal server error' });
     }
@@ -48,11 +55,12 @@ export class AuthController {
         return res.status(401).json({ message: 'Invalid credentials' });
       }
 
-      const token = jwt.sign({ user_id: user.id }, 'your_secret_key', {
+      const secret = process.env.SESSION_SECRET as string;
+      const token = jwt.sign({ user_id: user.id }, secret, {
         expiresIn: '1h',
       });
 
-      return res.json({ token, user });
+      return res.json({ token, user: { username: user.username } });
     } catch (error) {
       L.error(error, 'Error while login user');
       return res.status(500).json({ message: 'Internal server error' });

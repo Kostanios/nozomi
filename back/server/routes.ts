@@ -1,9 +1,12 @@
 import { Application, Request, Response, NextFunction } from 'express';
 import { Pool } from 'pg';
 import jwt from 'jsonwebtoken';
+import cors from 'cors';
 
 import authRouter from './api/controllers/auth/router';
 import medicationRouter from './api/controllers/medication/router';
+import usersRouter from './api/controllers/users/router';
+import * as process from 'process';
 
 export const pool = new Pool({
   user: 'postgres',
@@ -21,7 +24,7 @@ function authenticateToken(req: Request, res: Response, next: NextFunction) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
 
-  jwt.verify(token, 'your_secret_key', (err, user) => {
+  jwt.verify(token, process.env.SESSION_SECRET as string, (err, user) => {
     if (err) {
       return res.status(403).json({ message: 'Invalid token' });
     }
@@ -35,7 +38,9 @@ function authenticateToken(req: Request, res: Response, next: NextFunction) {
 }
 
 export default function routes(app: Application): void {
+  app.use(cors({ origin: process.env.ORIGIN }));
   app.use('/', authRouter);
   app.use(authenticateToken);
-  app.use('/medications', medicationRouter);
+  app.use('/api/medications', medicationRouter);
+  app.use('/api/users', usersRouter);
 }
