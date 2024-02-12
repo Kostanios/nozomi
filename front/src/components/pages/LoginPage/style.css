@@ -1,0 +1,15 @@
+.login .ant-card-body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: beige;
+}
+
+.login .ant-card-body form {
+    width: 450px;
+    background: #49cc90;
+    padding: 12px 32px 32px 32px;
+    border-radius: 5px;
+}
