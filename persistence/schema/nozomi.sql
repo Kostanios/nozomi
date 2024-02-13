@@ -9,8 +9,8 @@ CREATE TABLE IF NOT EXISTS "Medication" (
                                         user_id             INTEGER REFERENCES "User" (id),
                                         name                VARCHAR(255) UNIQUE NOT NULL,
                                         description         TEXT,
-                                        count               INTEGER,
-                                        destination_count   INTEGER,
+                                        count               INT NOT NULL CHECK (count >= 0),
+                                        destination_count   INT NOT NULL CHECK (count >= 0),
                                         created_at          VARCHAR(30)
 );
 

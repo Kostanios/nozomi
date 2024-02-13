@@ -1,9 +1,9 @@
 import React, { FC, useCallback } from "react";
-import { Form, Input, Modal } from "antd";
+import {Alert, Form, Input, Modal} from "antd";
 import { useForm } from "antd/es/form/Form";
 
-import "./style.css";
 import {medicationStore} from "../../../../../store/medication.store";
+import "./style.css";
 
 interface IMedicationModalForm {
     open: boolean
@@ -13,6 +13,7 @@ interface IMedicationModalForm {
 export const MedicationModalForm: FC<IMedicationModalForm> = ({ open, setOpen }) => {
     const [ form] = useForm();
     const createMedication = medicationStore(state => state.createMedication);
+    const createMedicationError = medicationStore(state => state.error.createMedication);
 
     const createMedicationCallback = useCallback((values: { name: string, description?: string, count: number, destination_count?: number }) =>
         createMedication(values, () => {
@@ -76,6 +77,12 @@ export const MedicationModalForm: FC<IMedicationModalForm> = ({ open, setOpen })
                         placeholder="destination count"
                     />
                 </Form.Item>
+                {createMedicationError && (
+                    <Alert
+                        message={createMedicationError.response?.data.message || createMedicationError.message}
+                        type="error"
+                    />
+                )}
             </Form>
         </Modal>
     )

@@ -1,10 +1,10 @@
 import { Input, List } from 'antd';
 import { DeleteOutlined } from "@ant-design/icons";
-import React, {FC, useCallback} from 'react';
-import './style.css';
+import React, {FC, useCallback} from "react";
+import "./style.css";
 
 import { Medication } from "../../../../../model/medication.model";
-import {medicationStore} from "../../../../../store/medication.store";
+import { medicationStore } from "../../../../../store/medication.store";
 
 interface IMedicationItem {
     medication: Medication
@@ -40,6 +40,7 @@ export const MedicationItem: FC<IMedicationItem> = ({ medication }) => {
                     <label>
                         <span>Count: </span>
                         <Input
+                            min={0}
                             onChange={updateCountMedicationCallback}
                             type='number'
                             value={medication.count}
@@ -48,6 +49,7 @@ export const MedicationItem: FC<IMedicationItem> = ({ medication }) => {
                     <label>
                         <span>Destination count:</span>
                         <Input
+                            min={0}
                             onChange={updateDestinationCountMedicationCallback}
                             type='number'
                             value={medication.destination_count}

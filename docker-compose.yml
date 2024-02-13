@@ -16,3 +16,7 @@ services:
     build: back
     ports:
       - "8000:8000"
+  frontend:
+    build: front
+    ports:
+      - "3000:3000"

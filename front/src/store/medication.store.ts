@@ -26,7 +26,7 @@ export const medicationStore = create<MedicationState>((set, get) => ({
             set({
                 loading: {
                     ...get().loading,
-                    getMedications: true
+                    createMedication: true
                 }
             })
 
@@ -37,11 +37,11 @@ export const medicationStore = create<MedicationState>((set, get) => ({
             set({
                 loading: {
                     ...get().loading,
-                    getMedications: false,
+                    createMedication: false,
                 },
                 error: {
                     ...get().error,
-                    getMedications: null
+                    createMedication: null
                 }
             });
 
@@ -54,11 +54,11 @@ export const medicationStore = create<MedicationState>((set, get) => ({
             set({
                 loading: {
                     ...get().loading,
-                    getMedications: false,
+                    createMedication: false,
                 },
                 error: {
                     ...get().error,
-                    getMedications: error
+                    createMedication: error
                 }
             });
         }

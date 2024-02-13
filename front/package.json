@@ -1,6 +1,7 @@
 {
-  "name": "front",
+  "name": "frontend",
   "version": "0.1.0",
+  "node": "18.19.0",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "5.3.0",
@@ -51,5 +52,6 @@
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-prettier": "4.0.0",
     "prettier": "3.2.5"
-  }
+  },
+  "author": "Kanstantsin Kotau"
 }

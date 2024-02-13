@@ -10,7 +10,7 @@ import { LoginPage } from "./components/pages/LoginPage/LoginPage";
 import { MedicationPage } from "./components/pages/MedicationPage/MedicationPage";
 import { authStore } from "./store/auth.store";
 import { RegPage } from "./components/pages/RegPage/RegPage";
-import { setJWT } from "./config/axiosConfig";
+import { clearJWT, setJWT } from "./config/axiosConfig";
 import "./App.css";
 
 
@@ -26,7 +26,13 @@ function App() {
   }
 
   useEffect(() => {
-    !user && getCurrentUser(() => navigate('/'), () => navigate('/login'));
+    !user && getCurrentUser(
+        () => navigate('/'),
+        () => {
+            navigate('/login');
+            clearJWT();
+        }
+    );
   }, []);
 
   return (

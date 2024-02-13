@@ -1,9 +1,10 @@
 import React, { useCallback } from "react";
+import { useForm } from "antd/es/form/Form";
 import { Alert, Button, Card, Form, Input } from "antd";
 import { Link } from "react-router-dom";
-import { useForm } from "antd/es/form/Form";
+
 import { authStore } from "../../../store/auth.store";
-import './style.css';
+import "./style.css";
 
 export const LoginPage = () => {
     const [form] = useForm();
