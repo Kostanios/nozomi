@@ -4,6 +4,22 @@
 
 require Node js 18.19.0
 
+you need to create .env file in back folder
+
+```env
+APP_ID=back
+PORT=8000
+LOG_LEVEL=debug
+REQUEST_LIMIT=100kb
+SESSION_SECRET=somesecret
+ORIGIN=http://localhost:3000
+; POSTGRES_HOST=nozomi-postgres-1 - for docker enviroment
+; POSTGRES_HOST=localhost - for local testing
+
+OPENAPI_SPEC=/Y/spec
+
+```
+
 ## Quick Start
 
 Get started developing with develop mode...
