@@ -1,0 +1,12 @@
+.MedicationPage {
+    padding: 0 10vw;
+}
+
+.MedicationPage .ant-card-body {
+    height: 80vh;
+}
+
+.MedicationPage h1 {
+    display: flex;
+    justify-content: space-between;
+}

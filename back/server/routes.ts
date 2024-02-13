@@ -10,7 +10,7 @@ import * as process from 'process';
 
 export const pool = new Pool({
   user: 'postgres',
-  host: 'localhost',
+  host: process.env.POSTGRES_HOST,
   database: 'nozomi',
   password: 'postgres',
   port: 5432,

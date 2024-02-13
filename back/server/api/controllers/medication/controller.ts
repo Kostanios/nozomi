@@ -16,11 +16,13 @@ export class MedicationController {
       // @ts-ignore
       const userId: string = req.user.user_id;
 
-      const { name, description, count, destination_count } = req.body;
+      const { name, description = '', count, destination_count = 0 } = req.body;
+
+      const created_at = new Date().toISOString();
 
       const medicationResult = await pool.query(
-        'INSERT INTO "Medication" (user_id, name, description, count, destination_count) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-        [userId, name, description, count, destination_count]
+        'INSERT INTO "Medication" (user_id, name, description, count, destination_count, created_at) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+        [userId, name, description, count, destination_count, created_at]
       );
 
       const medication = medicationResult.rows[0];
@@ -31,6 +33,11 @@ export class MedicationController {
         medication,
       });
     } catch (error) {
+      if (error.code === '23505') {
+        return res
+          .status(409)
+          .json({ message: 'Medication with this name already exist' });
+      }
       L.error(error, 'Error: while creating medications');
       return res.status(500).json({ message: 'Internal server error' });
     }
@@ -42,7 +49,7 @@ export class MedicationController {
       const userId: string = req.user.user_id;
 
       const medicationsResult = await pool.query(
-        'SELECT * FROM "Medication" WHERE user_id = $1',
+        'SELECT * FROM "Medication" WHERE user_id = $1 ORDER BY created_at asc',
         [userId]
       );
 

@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
-import {Alert, Button, Card, Form, Input} from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Alert, Button, Card, Form, Input } from "antd";
+import { Link } from "react-router-dom";
 import { useForm } from "antd/es/form/Form";
 import { authStore } from "../../../store/auth.store";
 import './style.css';
@@ -10,10 +10,9 @@ export const LoginPage = () => {
     const logIn = authStore(state => state.logIn);
     const loading = authStore(state => state.loading.login);
     const loginUserError = authStore(state => state.error.login)
-    const navigate = useNavigate();
 
     const handleSubmit = useCallback((values: { password: string, username: string }) => {
-        void logIn(values.username, values.password, () => navigate('/'))
+        void logIn(values.username, values.password, () => { window.location.href = '/'})
     }, [logIn])
 
     return (
@@ -21,6 +20,7 @@ export const LoginPage = () => {
             <Form form={form} onFinish={handleSubmit}>
                 <h1>Login Page</h1>
                 <Form.Item
+                    required
                     label="Username"
                     name="username"
                     rules={
@@ -33,6 +33,7 @@ export const LoginPage = () => {
                     <Input placeholder="username"/>
                 </Form.Item>
                 <Form.Item
+                    required
                     label="Password"
                     name="password"
                     rules={

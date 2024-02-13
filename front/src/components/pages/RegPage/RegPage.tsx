@@ -21,6 +21,7 @@ export const RegPage = () => {
             <Form form={form} onFinish={handleSubmit}>
                 <h1>Registration Page</h1>
                 <Form.Item
+                    required
                     label="Username"
                     name="username"
                     rules={
@@ -33,6 +34,7 @@ export const RegPage = () => {
                     <Input placeholder="username"/>
                 </Form.Item>
                 <Form.Item
+                    required
                     label="Password"
                     name="password"
                     rules={
@@ -44,7 +46,7 @@ export const RegPage = () => {
                 >
                     <Input placeholder="password"/>
                 </Form.Item>
-                <Button loading={loading} onClick={() => form.submit()}>Log in</Button>
+                <Button loading={loading} onClick={() => form.submit()}>Registration</Button>
                 <div>Have an account? <Link to="/login">Login</Link></div>
                 {createUserError && (
                     <Alert

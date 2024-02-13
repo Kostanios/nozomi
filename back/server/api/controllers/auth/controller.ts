@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { compare, hash } from 'bcrypt';
+import { compare, hash } from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import * as process from 'process';
 
@@ -33,7 +33,7 @@ export class AuthController {
       if (error.code === '23505') {
         return res
           .status(409)
-          .json({ message: 'User with this email already exist' });
+          .json({ message: 'User with this username already exist' });
       }
       L.error(error, 'Error while creating user');
       return res.status(500).json({ message: 'Internal server error' });

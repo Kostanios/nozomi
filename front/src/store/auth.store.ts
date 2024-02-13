@@ -10,23 +10,28 @@ const initialState: InitialAuthState = {
     loading: {
         user: false,
         login: false,
-        createUser: false
+        createUser: false,
+        getCurrentUser: false
     },
     error: {
         user: null,
         login: null,
-        createUser: null
+        createUser: null,
+        getCurrentUser: null
     },
 };
 
 export const authStore = create<AuthState>((set, get) => ({
-    logOut: () => {
+    logOut: (onSuccess) => {
         set({
             user: null
         })
-        clearJWT()
-        window.location.pathname = '/'
-        localStorage.clear()
+        clearJWT();
+        localStorage.clear();
+
+        if (onSuccess) {
+            onSuccess()
+        }
     },
     createUser: async (username: string, password: string, onSuccess) => {
         try {
@@ -37,12 +42,9 @@ export const authStore = create<AuthState>((set, get) => ({
                 }
             })
 
-            const loginRes = await AuthService.createUser(username, password);
-
-            setJWT(loginRes.data.token);
+            await AuthService.createUser(username, password);
 
             set({
-                user: loginRes.data.user,
                 loading: {
                     ...get().loading,
                     createUser: false,
@@ -83,6 +85,8 @@ export const authStore = create<AuthState>((set, get) => ({
 
             setJWT(loginRes.data.token);
 
+            localStorage.setItem('token', loginRes.data.token);
+
             set({
                 user: loginRes.data.user,
                 loading: {
@@ -111,7 +115,7 @@ export const authStore = create<AuthState>((set, get) => ({
             })
         }
     },
-    getCurrentUser: async (onSuccess) => {
+    getCurrentUser: async (onSuccess, onError) => {
         try {
             set({
                 loading: {
@@ -141,6 +145,11 @@ export const authStore = create<AuthState>((set, get) => ({
             }
         } catch (err) {
             const error = err as AxiosError<Error>
+
+            if (onError) {
+                onError()
+            }
+
             set({
                 user: null,
                 loading: {

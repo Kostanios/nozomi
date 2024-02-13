@@ -7,9 +7,10 @@ CREATE TABLE IF NOT EXISTS "User" (
 CREATE TABLE IF NOT EXISTS "Medication" (
                                         id                  SERIAL PRIMARY KEY,
                                         user_id             INTEGER REFERENCES "User" (id),
-                                        name                VARCHAR(255) NOT NULL,
+                                        name                VARCHAR(255) UNIQUE NOT NULL,
                                         description         TEXT,
                                         count               INTEGER,
-                                        destination_count   INTEGER
+                                        destination_count   INTEGER,
+                                        created_at          VARCHAR(30)
 );
 

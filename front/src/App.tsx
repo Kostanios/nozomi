@@ -1,25 +1,48 @@
-import React from "react";
-import {authStore} from "./store/auth.store";
+import React, { useEffect } from "react";
+import { Button } from "antd";
 import {
-  Routes,
-  Route
+    Routes,
+    Route,
+    useNavigate
 } from "react-router-dom";
-import {LoginPage} from "./components/pages/LoginPage/LoginPage";
-import {Redirect} from "./components/Redirect/Redirect";
-import {MedicationPage} from "./components/pages/MedicationPage/MedicationPage";
+
+import { LoginPage } from "./components/pages/LoginPage/LoginPage";
+import { MedicationPage } from "./components/pages/MedicationPage/MedicationPage";
+import { authStore } from "./store/auth.store";
+import { RegPage } from "./components/pages/RegPage/RegPage";
+import { setJWT } from "./config/axiosConfig";
 import "./App.css";
-import {RegPage} from "./components/pages/RegPage/RegPage";
+
 
 function App() {
-  const user = authStore(state => state);
+  const navigate = useNavigate();
+  const user = authStore(state => state.user);
+  const getCurrentUser = authStore(state => state.getCurrentUser);
+  const logOut = authStore(state => state.logOut);
+
+  const token = localStorage.getItem('token');
+  if (token) {
+     setJWT(token);
+  }
+
+  useEffect(() => {
+    !user && getCurrentUser(() => navigate('/'), () => navigate('/login'));
+  }, []);
 
   return (
     <div className="App">
+        {
+            user && (
+                <h1 className="AuthoredHeader">
+                    <span>{user.username}</span>
+                    <Button onClick={() => logOut(() => navigate('/login'))}>Log Out</Button>
+                </h1>
+            )
+        }
       <Routes>
           {user && <Route path="/" Component={MedicationPage} />}
           <Route path="/login" Component={LoginPage}/>
           <Route path="/reg" Component={RegPage}/>
-          <Route path="/" Component={() => <Redirect to="/" />} />
       </Routes>
     </div>
   );

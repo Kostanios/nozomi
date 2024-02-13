@@ -1,0 +1,20 @@
+.MedicationItem {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    padding: 4px 8px;
+    border-radius: 5px;
+    box-shadow: rgba(27, 27, 27, 0.2) 1px 1px 1px 1px;
+}
+
+.MedicationItem span, .MedicationItem label {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.MedicationItem input {
+    max-width: 55px
+}

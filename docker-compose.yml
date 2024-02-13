@@ -1,6 +1,6 @@
-version: '1.1'
+version: '1.2'
 services:
-  postgress:
+  postgres:
     platform: linux/arm64
     image: postgres:14.1-alpine
     restart: always
@@ -12,3 +12,7 @@ services:
     volumes:
       - ./persistence/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./persistence/schema:/db_scripts
+  backend:
+    build: back
+    ports:
+      - "8000:8000"
