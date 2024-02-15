@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react";
-import {Alert, Button, Card, List} from "antd";
+import React, { useEffect, useState } from 'react';
+import { Alert, Button, Card, List } from 'antd';
 
-import { MedicationItem } from "./components/MedicationItem/MedicationItem";
-import { medicationStore } from "../../../store/medication.store";
-import { MedicationModalForm } from "./components/MedicationModalForm/MedicationModalForm";
+import { MedicationItem } from './components/MedicationItem/MedicationItem';
+import { medicationStore } from '../../../store/medication.store';
+import { MedicationModalForm } from './components/MedicationModalForm/MedicationModalForm';
 import './style.css';
 
 export const MedicationPage = () => {
@@ -29,7 +29,7 @@ export const MedicationPage = () => {
                 </h1>
                 <List
                     loading={getMedicationsLoading}
-                    renderItem={(medication) => <MedicationItem medication={medication} />}
+                    renderItem={medication => <MedicationItem medication={medication} />}
                     dataSource={medications}
                 />
                 {getMedicationsError && (
@@ -41,5 +41,5 @@ export const MedicationPage = () => {
                 )}
             </Card>
         </div>
-    )
-}
+    );
+};

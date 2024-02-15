@@ -1,9 +1,9 @@
-import {AxiosError} from "axios";
+import { AxiosError } from 'axios';
 import { create } from 'zustand';
 
-import { AuthState, InitialAuthState } from "../model/auth.model";
-import { AuthService } from "../api/auth.service";
-import { clearJWT, setJWT } from "../config/axiosConfig";
+import { AuthState, InitialAuthState } from '../model/auth.model';
+import { AuthService } from '../api/auth.service';
+import { clearJWT, setJWT } from '../config/axiosConfig';
 
 const initialState: InitialAuthState = {
     user: null,
@@ -22,15 +22,15 @@ const initialState: InitialAuthState = {
 };
 
 export const authStore = create<AuthState>((set, get) => ({
-    logOut: (onSuccess) => {
+    logOut: onSuccess => {
         set({
             user: null
-        })
+        });
         clearJWT();
         localStorage.clear();
 
         if (onSuccess) {
-            onSuccess()
+            onSuccess();
         }
     },
     createUser: async (username: string, password: string, onSuccess) => {
@@ -40,7 +40,7 @@ export const authStore = create<AuthState>((set, get) => ({
                     ...get().loading,
                     createUser: true
                 }
-            })
+            });
 
             await AuthService.createUser(username, password);
 
@@ -54,7 +54,7 @@ export const authStore = create<AuthState>((set, get) => ({
                     ...get().error,
                     createUser: null
                 }
-            })
+            });
 
             onSuccess();
         } catch (err) {
@@ -69,7 +69,7 @@ export const authStore = create<AuthState>((set, get) => ({
                     ...get().error,
                     createUser: error
                 }
-            })
+            });
         }
     },
     logIn: async (username: string, password: string, onSuccess) => {
@@ -79,7 +79,7 @@ export const authStore = create<AuthState>((set, get) => ({
                     ...get().loading,
                     login: true
                 }
-            })
+            });
 
             const loginRes = await AuthService.login(username, password);
 
@@ -97,7 +97,7 @@ export const authStore = create<AuthState>((set, get) => ({
                     ...get().error,
                     login: null
                 }
-            })
+            });
 
             onSuccess();
         } catch (err) {
@@ -112,7 +112,7 @@ export const authStore = create<AuthState>((set, get) => ({
                     ...get().error,
                     login: error
                 }
-            })
+            });
         }
     },
     getCurrentUser: async (onSuccess, onError) => {
@@ -122,7 +122,7 @@ export const authStore = create<AuthState>((set, get) => ({
                     ...get().loading,
                     user: true
                 },
-            })
+            });
 
             const userRes = await AuthService.getCurrentUser();
 
@@ -137,17 +137,17 @@ export const authStore = create<AuthState>((set, get) => ({
                         ...get().error,
                         user: null
                     }
-                })
+                });
             }
 
             if (onSuccess) {
                 onSuccess();
             }
         } catch (err) {
-            const error = err as AxiosError<Error>
+            const error = err as AxiosError<Error>;
 
             if (onError) {
-                onError()
+                onError();
             }
 
             set({
@@ -160,7 +160,7 @@ export const authStore = create<AuthState>((set, get) => ({
                     ...get().error,
                     user: error
                 }
-            })
+            });
         }
     },
     ...initialState,

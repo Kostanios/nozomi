@@ -13,12 +13,12 @@ LOG_LEVEL=debug
 REQUEST_LIMIT=100kb
 SESSION_SECRET=somesecret
 ORIGIN=http://localhost:3000
-; POSTGRES_HOST=nozomi-postgres-1 - for docker enviroment
-; POSTGRES_HOST=localhost - for local testing
+POSTGRES_HOST=localhost
 
 OPENAPI_SPEC=/Y/spec
 
 ```
+Note: set POSTGRES_HOST equal 'nozomi-postgres-1' - for docker enviroment
 
 ## Quick Start
 

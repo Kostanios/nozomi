@@ -1,5 +1,5 @@
-import axiosInstance from "../config/axiosConfig";
-import { Medication } from "../model/medication.model";
+import axiosInstance from '../config/axiosConfig';
+import { Medication } from '../model/medication.model';
 
 export const MedicationService = {
     createMedication: (data: { name: string, description?: string, count: number, destination_count?: number }) => axiosInstance.post<Medication>('/api/medications', data),

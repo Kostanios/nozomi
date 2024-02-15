@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect } from 'react';
 
 interface IRedirect {
     to: string
@@ -9,5 +9,5 @@ export const Redirect: FC<IRedirect> = ({ to }) => {
     }, []);
 
     return null;
-}
+};
 

@@ -1,18 +1,17 @@
-import React, { useEffect } from "react";
-import { Button } from "antd";
+import React, { useCallback, useEffect } from 'react';
+import { Button } from 'antd';
 import {
     Routes,
     Route,
     useNavigate
-} from "react-router-dom";
+} from 'react-router-dom';
 
-import { LoginPage } from "./components/pages/LoginPage/LoginPage";
-import { MedicationPage } from "./components/pages/MedicationPage/MedicationPage";
-import { authStore } from "./store/auth.store";
-import { RegPage } from "./components/pages/RegPage/RegPage";
-import { clearJWT, setJWT } from "./config/axiosConfig";
-import "./App.css";
-
+import { LoginPage } from './components/pages/LoginPage/LoginPage';
+import { MedicationPage } from './components/pages/MedicationPage/MedicationPage';
+import { authStore } from './store/auth.store';
+import { RegPage } from './components/pages/RegPage/RegPage';
+import { clearJWT, setJWT } from './config/axiosConfig';
+import './App.css';
 
 function App() {
   const navigate = useNavigate();
@@ -24,6 +23,8 @@ function App() {
   if (token) {
      setJWT(token);
   }
+
+  const logOutCallback = useCallback(() => logOut(() => navigate('/login')), []);
 
   useEffect(() => {
     !user && getCurrentUser(
@@ -41,7 +42,7 @@ function App() {
             user && (
                 <h1 className="AuthoredHeader">
                     <span>{user.username}</span>
-                    <Button onClick={() => logOut(() => navigate('/login'))}>Log Out</Button>
+                    <Button onClick={logOutCallback}>Log Out</Button>
                 </h1>
             )
         }

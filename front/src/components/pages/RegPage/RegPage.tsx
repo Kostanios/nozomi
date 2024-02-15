@@ -1,9 +1,9 @@
-import React, { useCallback } from "react";
-import { useForm } from "antd/es/form/Form";
-import { Link, useNavigate } from "react-router-dom";
-import { Alert, Button, Card, Form, Input } from "antd";
+import React, { useCallback } from 'react';
+import { useForm } from 'antd/es/form/Form';
+import { Link, useNavigate } from 'react-router-dom';
+import { Alert, Button, Card, Form, Input } from 'antd';
 
-import { authStore } from "../../../store/auth.store";
+import { authStore } from '../../../store/auth.store';
 
 export const RegPage = () => {
     const [form] = useForm();
@@ -13,8 +13,8 @@ export const RegPage = () => {
     const navigate = useNavigate();
 
     const handleSubmit = useCallback((values: { password: string, username: string }) => {
-        void createUser(values.username, values.password, () => navigate('/login'))
-    }, [createUser])
+        void createUser(values.username, values.password, () => navigate('/login'));
+    }, [createUser]);
 
     return (
         <Card className="login">
@@ -27,7 +27,7 @@ export const RegPage = () => {
                     rules={
                         [
                             { required: true, message: 'Enter Username' },
-                            { min: 6, message: 'Username must be at least 6 chars length'}
+                            { min: 6, message: 'Username must be at least 6 chars length' }
                         ]
                     }
                 >
@@ -40,13 +40,13 @@ export const RegPage = () => {
                     rules={
                         [
                             { required: true, message: 'Enter Password' },
-                            { min: 6, message: 'Password must be at least 6 chars length'}
+                            { min: 6, message: 'Password must be at least 6 chars length' }
                         ]
                     }
                 >
                     <Input placeholder="password"/>
                 </Form.Item>
-                <Button loading={loading} onClick={() => form.submit()}>Registration</Button>
+                <Button loading={loading} onClick={form.submit}>Registration</Button>
                 <div>Have an account? <Link to="/login">Login</Link></div>
                 {createUserError && (
                     <Alert
@@ -56,5 +56,5 @@ export const RegPage = () => {
                 )}
             </Form>
         </Card>
-    )
-}
+    );
+};

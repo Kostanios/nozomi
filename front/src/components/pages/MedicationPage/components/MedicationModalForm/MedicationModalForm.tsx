@@ -1,9 +1,9 @@
-import React, { FC, useCallback } from "react";
-import {Alert, Form, Input, Modal} from "antd";
-import { useForm } from "antd/es/form/Form";
+import React, { FC, useCallback } from 'react';
+import { Alert, Form, Input, Modal } from 'antd';
+import { useForm } from 'antd/es/form/Form';
 
-import {medicationStore} from "../../../../../store/medication.store";
-import "./style.css";
+import { medicationStore } from '../../../../../store/medication.store';
+import './style.css';
 
 interface IMedicationModalForm {
     open: boolean
@@ -73,7 +73,7 @@ export const MedicationModalForm: FC<IMedicationModalForm> = ({ open, setOpen })
                     <Input
                         defaultValue={0}
                         min={0}
-                        type='number'
+                        type="number"
                         placeholder="destination count"
                     />
                 </Form.Item>
@@ -85,5 +85,5 @@ export const MedicationModalForm: FC<IMedicationModalForm> = ({ open, setOpen })
                 )}
             </Form>
         </Modal>
-    )
+    );
 };

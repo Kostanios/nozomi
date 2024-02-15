@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { authStore } from "../store/auth.store";
+import { authStore } from '../store/auth.store';
 import config from './config.json';
 
 const LONG_RUNNING_REQUEST_TIMEOUT = 10000; // 60s
@@ -22,13 +22,13 @@ axiosInstance.interceptors.response.use(
         return Promise.reject(error);
     });
 
-export const setJWT = (token: string) => axiosInstance.interceptors.request.use((config) => {
-    config.headers["Authorization"] = `Bearer ${token}`;
+export const setJWT = (token: string) => axiosInstance.interceptors.request.use(config => {
+    config.headers['Authorization'] = `Bearer ${token}`;
     return config;
 });
 
-export const clearJWT = () => axiosInstance.interceptors.request.use((config) => {
-    delete config.headers["Authorization"];
+export const clearJWT = () => axiosInstance.interceptors.request.use(config => {
+    delete config.headers['Authorization'];
     return config;
 });
 

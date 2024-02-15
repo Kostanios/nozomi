@@ -1,8 +1,8 @@
-import {AxiosError} from "axios";
-import { create } from "zustand";
+import { AxiosError } from 'axios';
+import { create } from 'zustand';
 
-import { InitialMedicationState, MedicationState } from "../model/medication.model";
-import {MedicationService} from "../api/medication.service";
+import { InitialMedicationState, MedicationState } from '../model/medication.model';
+import { MedicationService } from '../api/medication.service';
 
 const initialState: InitialMedicationState = {
     medications: [],
@@ -28,7 +28,7 @@ export const medicationStore = create<MedicationState>((set, get) => ({
                     ...get().loading,
                     createMedication: true
                 }
-            })
+            });
 
             await MedicationService.createMedication(data);
 
@@ -63,14 +63,14 @@ export const medicationStore = create<MedicationState>((set, get) => ({
             });
         }
     },
-    deleteMedication: async (id) => {
+    deleteMedication: async id => {
         try {
             set({
                 loading: {
                     ...get().loading,
                     deleteMedication: true
                 }
-            })
+            });
 
             await MedicationService.deleteMedication(id);
 
@@ -108,7 +108,7 @@ export const medicationStore = create<MedicationState>((set, get) => ({
                     ...get().loading,
                     updateMedication: true
                 }
-            })
+            });
 
             await MedicationService.updateMedication(id, data);
 
