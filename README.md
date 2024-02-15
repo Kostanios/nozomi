@@ -13,12 +13,12 @@ LOG_LEVEL=debug
 REQUEST_LIMIT=100kb
 SESSION_SECRET=somesecret
 ORIGIN=http://localhost:3000
-POSTGRES_HOST=nozomi-postgres-1 - for docker enviroment
+POSTGRES_HOST=nozomi-postgres-1
 
 OPENAPI_SPEC=/Y/spec
 ```
 
-Note: set POSTGRES_HOST equal 'nozomi-postgres-1' - for local environment
+Note: set POSTGRES_HOST equal 'localhost' - for local environment
 
 Use following command to build images and run containers from root:
 
