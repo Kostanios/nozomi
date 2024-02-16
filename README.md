@@ -18,7 +18,7 @@ POSTGRES_HOST=nozomi-postgres-1
 OPENAPI_SPEC=/Y/spec
 ```
 
-Note: set POSTGRES_HOST equal 'localhost' - for local environment
+Note: set POSTGRES_HOST equal 'localhost' - for local environment outside docker
 
 Use following command to build images and run containers from root:
 
